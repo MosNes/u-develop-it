@@ -4,7 +4,8 @@
   "description": "Example voting app created to learn how to connect back-end code to a database",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/MosNes/u-develop-it/issues"
   },
-  "homepage": "https://github.com/MosNes/u-develop-it#readme"
+  "homepage": "https://github.com/MosNes/u-develop-it#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
 }
