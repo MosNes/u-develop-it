@@ -1,5 +1,6 @@
 //-----DEPENDENCIES AND GLOBAL VARIABLES-----------------------------------------
-
+const dotenv = require('dotenv');
+dotenv.config()
 const mysql = require('mysql2');
 const express = require('express');
 const PORT = process.env.PORT || 3001;
@@ -20,7 +21,7 @@ const db = mysql.createConnection(
         //your MYSQL UN
         user: 'root',
         //your MYSQL PW
-        password: secrets.db_pw,
+        password: process.env.DBPW,
         database: 'election'
     },
     console.log('Connected to the election database.')
