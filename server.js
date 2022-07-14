@@ -28,16 +28,60 @@ const db = mysql.createConnection(
 
 //------ROUTES--------------------------------------------------------------------
 
-// db.query(`SELECT * FROM candidates`, (err, rows) => {
-//     console.log(rows);
-// });
+//get all candidates
+app.get('/api/candidates', (req, res) => {
+    const sql = `SELECT * FROM candidates`;
 
-// db.query(`SELECT * FROM candidates WHERE id = 1`, (err, rows) => {
-//     if (err) {
-//         console.log(err);
-//     }
-//     console.log(rows);
-// });
+    db.query(sql, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
+});
+
+//get a single candidate
+app.get('/api/candidates/:id', (req, res) => {
+    const sql = `SELECT * FROM candidates WHERE id = ?`;
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, row) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: row
+        });
+    });
+});
+
+//delete a single candidate
+app.delete('/api/candidates/:id', (req, res) => {
+    const sql = `DELETE FROM candidates WHERE id = ?`;
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+       } else if (!result.affectedRows) {
+        res.json({
+            message: 'Candidate not found'
+        })
+       } else {
+        res.json({
+        message: 'deleted',
+        changes: result.affectedRows,
+        id: req.params.id
+        });
+        }
+    });
+});
 
 // db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
 //     if (err) {
