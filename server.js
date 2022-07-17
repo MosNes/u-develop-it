@@ -1,11 +1,10 @@
 //-----DEPENDENCIES AND GLOBAL VARIABLES-----------------------------------------
 const dotenv = require('dotenv');
 dotenv.config()
-const mysql = require('mysql2');
 const express = require('express');
 const PORT = process.env.PORT || 3001;
 const inputCheck = require('./utils/inputCheck');
-
+const db = require('./db/connection')
 const app = express();
 
 //-----REQUIRED MIDDLEWARE-------------------------------------------------------
@@ -13,18 +12,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//Connect to database
-const db = mysql.createConnection(
-    {
-        host: 'localhost',
-        //your MYSQL UN
-        user: 'root',
-        //your MYSQL PW
-        password: process.env.DBPW,
-        database: 'election'
-    },
-    console.log('Connected to the election database.')
-);
+
 
 //------ROUTES--------------------------------------------------------------------
 
